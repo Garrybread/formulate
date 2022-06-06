@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  input: MyText
+  user: one
+  form: one
+  question: one
+
+two:
+  input: MyText
+  user: two
+  form: two
+  question: two
