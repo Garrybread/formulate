@@ -1,0 +1,5 @@
+- content_for :jumbotron do
+    = @form.name
+%div= @form.description
+
+= link_to 'Back', forms_path, class: "btn btn-dark btn-lg"

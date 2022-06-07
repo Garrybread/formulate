@@ -1,0 +1,22 @@
+- content_for :jumbotron do
+    My Forms
+= link_to "Home", root_path, class: "btn btn-dark btn-lg mx-5"
+%table.m-5
+    %thead
+        %tr
+            %th Name
+            %th
+            %th Description
+            
+    %tbody
+        - @forms.each do |form|
+            %tr         
+                %td= form.name
+                %td= "|"
+                %td= form.description
+                %td= link_to 'Show', form_path(form), class: "btn btn-dark btn-sm"
+                %td= link_to 'Edit', edit_form_path(form), class: "btn btn-dark btn-sm"
+                %td= link_to 'Delete', form, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark btn-sm"
+
+
+= link_to 'Create Form', new_form_path, class: "btn btn-dark btn-lg mx-5"
