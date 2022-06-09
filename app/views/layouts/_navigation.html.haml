@@ -1,13 +1,13 @@
-%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.rounded
+%nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-5
   .container-fluid
-    %a.navbar-brand{:href => "#"} Formulate
+    %a.navbar-brand{:href => root_path} Formulate
     %button.navbar-toggler{"aria-controls" => "navbarNav", "aria-expanded" => "false", "aria-label" => "Toggle navigation", "data-bs-target" => "#navbarNav", "data-bs-toggle" => "collapse", :type => "button"}
       %span.navbar-toggler-icon
     #navbarNav.collapse.navbar-collapse
       %ul.navbar-nav
         %li.nav-item
-          %a.nav-link.active{"aria-current" => "page", :href => "#"} Home
+          = link_to 'Home', root_path, class: "btn btn-dark"
         %li.nav-item
-          %a.nav-link.active{"aria-current" => "page", :href => "#"} Explore
+          = link_to 'Explore', root_path, class: "btn btn-dark"
         %li.nav-item
-          %a.nav-link.active{:href => "#"} My Forms
+          = link_to 'My Forms', forms_path, class: "btn btn-dark"
