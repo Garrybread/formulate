@@ -1,17 +1,25 @@
 = form_with(model: form) do |f|
     - if form.errors.any?
         #error explanation
-        %h2
+        %h2.text-white.mx-5
             = pluralize(form.errors.count, "error")
             prohibited this book from being saved:
-        %ul
+        %ul.text-white.mx-5
             - form.errors.each do |error|
                 %li= error.full_message
-    .field
-        = f.label :name
-        = f.text_area :name
-    .field
-        = f.label :description
-        = f.text_area :description
+    .field.fs-2
+        .row
+            .col-1.mx-5.px-5
+                = f.label :name, class: "form-label text-white"
+        .row
+            .col-11.mx-auto
+                = f.text_field :name, class: "form-control mb-5"
+    .field.fs-2
+        .row
+            .col-1.mx-5.px-5
+                = f.label :description, class: "form-label text-white"
+        .row
+            .col-11.mx-auto
+                = f.text_area :description, class: "form-control"
     .actions
-        = f.submit 'Save', class: "btn btn-dark btn-lg"
+        = f.submit 'Save', class: "btn btn-dark btn-lg w-25 mx-5 my-5 fs-3 rounded-pill justify-content-center"

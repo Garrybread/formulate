@@ -8,3 +8,15 @@
     padding-top: 10px;
     padding-bottom: 15px;
 } 
+
+html,
+body {
+  height: 100%;
+  background-color: #1a1a1a;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
