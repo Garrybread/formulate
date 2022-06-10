@@ -76,4 +76,9 @@ Rails.application.configure do
   
   # Devise configuration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  
+  logger = ActiveSupport::Logger.new($stdout)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
 end
