@@ -1,20 +1,21 @@
 - content_for :jumbotron do
     = @form.name
 
-.d-flex.justify-content-center.text-white.fs-2.mx-5.px-5.truncate
+.d-flex.justify-content-center.text-white.fs-3.mx-5.px-5.truncate
     = @form.description
 
-.row.my-5
+.row.mt-3
     .col-6.mx-auto.text-white.p-3
-        .row.bg-dark.rounded-pill.p-3.mb-3.fs-3
-            .col Question 1
-        .row.bg-dark.rounded-pill.p-3.mb-3.fs-3
-            .col Question 2
-        .row.bg-dark.rounded-pill.p-3.mb-3.fs-3
-            .col Question 3
+        -if @form.questions.present?
+            -@form.questions.each do |question|
+                .row.bg-dark.rounded-pill.p-4.mb-3.fs-5
+                    .col= question.prompt.truncate(285)
+        -else
+            .text-center.text-white.fs-3.mx-5.px-5
+                This form has no questions.
 
-.d-flex.justify-content-center
-    = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 my-5 mx-5 rounded-pill"
-    = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 my-5 mx-5 rounded-pill"
-    = link_to 'Delete Form', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-25 fs-3 my-5 mx-5 rounded-pill"
-    = link_to "View Responses", form_path, class: "btn btn-dark btn-lg w-25 fs-3 my-5 mx-5 rounded-pill"
+.d-flex.justify-content-center.mb-5
+    = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+    = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+    = link_to 'Delete Form', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+    = link_to "View Responses", form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"

@@ -1,0 +1,7 @@
+.nested-form-wrapper
+    .field.fs-3.mx-5.px-5
+        = f.label :question, class: "form-label text-white fs-4"
+        = f.text_field :prompt, class: "form-control mb-3"
+        %button.form-label.btn.btn-dark.fs-5.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} Remove Question
+        = f.hidden_field :_destroy
+        
