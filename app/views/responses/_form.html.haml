@@ -1,0 +1,19 @@
+= form_with(model: response, url: form_responses_path) do |f|
+    - if response.errors.any?
+        #error explanation
+        %h2.text-white.mx-5
+            = pluralize(response.errors.count, "error")
+            with your response:
+        %ul.text-white.mx-5
+            - response.errors.each do |error|
+                %li= error.full_message
+    - @form.questions.each do |question|
+        = f.fields_for :question_responses, QuestionResponse.new(question: question) do |qrf|
+            = qrf.hidden_field :question_id
+            .field.fs-3.mx-5.px-5
+                = qrf.label :answer, question.prompt, class: "form-label text-white"
+                = qrf.text_field :answer, class: "form-control mb-5"
+    .actions
+        .d-flex.justify-content-center.mx-5.px-5
+            = f.submit 'Submit', data: { confirm: 'Are you sure you want to submit? This cannot be undone.' }, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
+            = link_to 'Cancel', forms_path, data: { confirm: 'Are you sure you want to delete your answers? This cannot be undone.' }, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"

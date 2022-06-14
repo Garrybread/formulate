@@ -18,4 +18,4 @@
     = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
     = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
     = link_to 'Delete Form', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-    = link_to "View Responses", form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+    = link_to "View Responses", form_responses_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"

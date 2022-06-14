@@ -4,7 +4,7 @@ class Form < ApplicationRecord
     validates :description, presence: true
 
     has_many :questions, index_errors: true, dependent: :destroy
-    has_many :question_responses
+    has_many :responses, dependent: :destroy
     has_many :users_forms
     has_many :users, through: :users_forms
 

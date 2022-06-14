@@ -1,0 +1,5 @@
+- content_for :jumbotron do
+    = @form.name
+.d-flex.justify-content-center.text-white.fs-3.mx-5.my-5.px-5.truncate
+    = @form.description
+= render 'form', response: @response

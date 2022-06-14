@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :forms
+  resources :forms do 
+    resources :responses, except: [:edit, :update]
+  end
   get 'home/index'
   devise_for :users
   root to: 'home#index'
