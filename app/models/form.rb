@@ -9,7 +9,5 @@ class Form < ApplicationRecord
     has_many :users, through: :users_forms
 
     accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
-    accepts_nested_attributes_for :responses, reject_if: :all_blank, allow_destroy: true
     validates_associated :questions
-    validates_associated :responses
 end
