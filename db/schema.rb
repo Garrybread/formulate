@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_06_162337) do
+ActiveRecord::Schema.define(version: 2022_06_13_163906) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,14 +24,12 @@ ActiveRecord::Schema.define(version: 2022_06_06_162337) do
 
   create_table "question_responses", force: :cascade do |t|
     t.text "answer", null: false
-    t.bigint "user_id", null: false
-    t.bigint "form_id", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["form_id"], name: "index_question_responses_on_form_id"
+    t.bigint "response_id"
     t.index ["question_id"], name: "index_question_responses_on_question_id"
-    t.index ["user_id"], name: "index_question_responses_on_user_id"
+    t.index ["response_id"], name: "index_question_responses_on_response_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -40,6 +38,13 @@ ActiveRecord::Schema.define(version: 2022_06_06_162337) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["form_id"], name: "index_questions_on_form_id"
+  end
+
+  create_table "responses", force: :cascade do |t|
+    t.bigint "form_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["form_id"], name: "index_responses_on_form_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -64,10 +69,9 @@ ActiveRecord::Schema.define(version: 2022_06_06_162337) do
     t.index ["user_id"], name: "index_users_forms_on_user_id"
   end
 
-  add_foreign_key "question_responses", "forms"
   add_foreign_key "question_responses", "questions"
-  add_foreign_key "question_responses", "users"
   add_foreign_key "questions", "forms"
+  add_foreign_key "responses", "forms"
   add_foreign_key "users_forms", "forms"
   add_foreign_key "users_forms", "users"
 end

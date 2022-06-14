@@ -1,0 +1,12 @@
+- content_for :jumbotron do
+    = "Response ##{@form.responses.find_index(@response) + 1}"
+
+.row.mt-3
+    .col-6.mx-auto.text-white.p-3
+        - @response.question_responses.each do |question_response|
+            .row.bg-dark.rounded-pill.p-4.mb-3.fs-5
+                = question_response.question.prompt
+            .row.bg-dark.rounded-pill.p-4.mb-5.fs-5.fst-italic
+                = question_response.answer
+.d-flex.justify-content-center.mb-5
+    = link_to "Back", form_responses_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
