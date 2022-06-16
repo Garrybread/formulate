@@ -1,18 +1,22 @@
 - content_for :jumbotron do
-    My Forms
+    Explore
 
 .d-flex.justify-content-center
     = link_to "Home", root_path, class: "btn btn-dark btn-lg w-25 mx-5 mb-3 fs-3 rounded-pill"
-
 .row
     .d-flex.justify-content-center.text-white.fs-1
-        Created Forms
+        All  Forms
     .col-6.mx-auto.text-white.p-3
-        - @forms.each do |form|
+        = form_tag "/forms", method: "GET" do
+            .row.mb-3
+                .col-10.p-0
+                    = text_field_tag :search_by_name, params[:search_by_name], placeholder: "Form name...", class: "text-white bg-dark form-control"
+                .col-2.p-0
+                    .d-grid
+                        = submit_tag "Search", class: "btn-dark w-100 btn border-white"
+        - @forms.order(:name).each do |form|
             = link_to form_path(form), class: "text-white text-decoration-none" do
                 .row.bg-dark.rounded-pill.p-3.mb-3
                     .col-6.fs-4= form.name
-                    .col-6.text-start.truncate= form.description
-    .d-flex.justify-content-center.text-white.fs-1
-        = link_to "Create New Form", new_form_path, class: "btn btn-dark fs-3 w-25 mb-5 mx-auto px-5 py-2 rounded-pill"
-        
+                    .col-2.fs-4= form.users.first.username
+                    .col-4.text-start.truncate.mt-2= form.description

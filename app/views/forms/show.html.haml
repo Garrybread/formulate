@@ -13,9 +13,24 @@
         -else
             .text-center.text-white.fs-3.mx-5.px-5
                 This form has no questions.
-
-.d-flex.justify-content-center.mb-5
-    = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-    = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-    = link_to 'Delete Form', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-    = link_to "View Responses", form_responses_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+-if user_signed_in?
+    -if current_user.forms.include?(@form)
+        .d-flex.justify-content-center.mb-5
+            = link_to "Back", my_forms_index_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+            = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+            = link_to "View Responses", form_responses_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+            .dropdown
+        -# %button#dropdownMenuButton1.btn.btn-dark.btn-lg.w-25.rounded-pill.fs-3.mx-5.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :type => "button"}
+        -#     Users
+        -# %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuButton1"}
+        -#     - @form.users.each do |user|
+        -#         %li
+        -#         = user.username
+    -else
+        .d-flex.justify-content-center.mb-5
+            = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+            = link_to "Create Response", new_form_response_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+-else
+    .d-flex.justify-content-center.mb-5
+        = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+        = link_to "Create Response", new_form_response_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"

@@ -6,7 +6,7 @@ class ResponsesController < ApplicationController
         @response = @form.responses.new(response_params)
 
         if @response.save
-            redirect_to form_responses_url(@form), notice: "Response was successfully created."
+            redirect_to form_url(@form), notice: "Response was successfully created."
         else
             render :new, status: :unprocessable_entity
         end

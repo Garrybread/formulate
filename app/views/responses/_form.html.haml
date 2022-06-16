@@ -16,4 +16,4 @@
     .actions
         .d-flex.justify-content-center.mx-5.px-5
             = f.submit 'Submit', data: { confirm: 'Are you sure you want to submit? This cannot be undone.' }, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
-            = link_to 'Cancel', forms_path, data: { confirm: 'Are you sure you want to delete your answers? This cannot be undone.' }, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
+            = link_to 'Cancel', form_path(@form), data: { confirm: 'Are you sure you want to delete your answers? This cannot be undone.' }, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
