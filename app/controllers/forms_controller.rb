@@ -3,11 +3,14 @@ class FormsController < ApplicationController
 
     def index
         @forms = Form.all
+
+        if params[:search_by_name] && params[:search_by_name] != ""
+            @forms = @forms.where("lower(name) like lower(:q) or lower(description) like lower(:q)", q: "%#{params[:search_by_name]}%")
+          end
     end
 
     def create
-        @form = Form.new(form_params)
-
+        @form = current_user.forms.new(form_params)
         if @form.save
             redirect_to form_url(@form), notice: "Form was successfully created."
         else
@@ -36,6 +39,10 @@ class FormsController < ApplicationController
     def destroy
         @form.destroy
         redirect_to forms_url, notice: "Form was successfully deleted."
+    end
+
+    def add_user
+        @form.users << current_user
     end
 
     private

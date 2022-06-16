@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'my_forms/index'
   resources :forms do 
     resources :responses, except: [:edit, :update]
   end

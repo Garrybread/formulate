@@ -3,7 +3,7 @@
 
 .row.mt-3
     .col-6.mx-auto.text-white.p-3
-        - @response.question_responses.each do |question_response|
+        - @response.question_responses.order(:created_at).each do |question_response|
             .row.bg-dark.rounded-pill.p-4.mb-3.fs-5
                 = question_response.question.prompt
             .row.bg-dark.rounded-pill.p-4.mb-5.fs-5.fst-italic
