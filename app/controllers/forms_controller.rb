@@ -38,7 +38,7 @@ class FormsController < ApplicationController
 
     def destroy
         @form.destroy
-        redirect_to forms_url, notice: "Form was successfully deleted."
+        redirect_to my_forms_index_url, notice: "Form was successfully deleted."
     end
 
     def add_user
