@@ -1,4 +1,10 @@
-- content_for :jumbotron do
-    Editing:
-    = @form.name
-= render 'form', form: @form
+-if user_signed_in?
+    -if current_user.forms.include?(@form)
+        - content_for :jumbotron do
+            Editing:
+            = @form.name
+        = render 'form', form: @form
+    -else
+        -controller.redirect_to form_path(@form)
+-else
+    -controller.redirect_to form_path(@form)

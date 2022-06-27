@@ -1,3 +1,6 @@
-- content_for :jumbotron do
-    New Form
-= render 'form', form: @form
+-if user_signed_in?
+    - content_for :jumbotron do
+        New Form
+    = render 'form', form: @form
+-else
+    -controller.redirect_to root_path(@form)
