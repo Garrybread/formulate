@@ -3,21 +3,22 @@
         - content_for :jumbotron do
             Responses
 
+        .row.justify-content-center
+            .col-md-3
+                .d-flex.justify-content-center.mb-3
+                    = link_to "Back", form_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 mx-5 rounded-pill"
         -organize_by_first_answer = false
-        .row
-            .col-6.mx-auto.text-white.p-3
+        .row.justify-content-center
+            .col-md-6.mx-auto.text-white.p-3
                 -if @form.responses.present?
                     - @form.responses.each_with_index do |response, index|
-                        .row.bg-dark.rounded-pill.p-3.mb-3
-                            -if organize_by_first_answer == true
-                                = link_to "#{response.question_responses.first.answer}", form_response_path(@form, response), class: "text-white text-decoration-none fs-3"
-                            -else
-                                = link_to "Response ##{@form.responses.find_index(response) + 1}", form_response_path(@form, response), class: "text-white text-decoration-none fs-3"
+                        = link_to form_response_path(@form, response), class: "text-white text-decoration-none" do
+                            .row.bg-dark.rounded.border-white.p-3.mb-1
+                                .col
+                                    .row.fs-3.mx-2= "Response ##{@form.responses.find_index(response) + 1}"
                 -else
                     .text-center.text-white.fs-3.mx-5.px-5
                         No responses found!
-        .d-flex.justify-content-center.mb-5.mt-4
-            = link_to "Back", form_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
     -else
         -controller.redirect_to form_path(@form)
 -else
