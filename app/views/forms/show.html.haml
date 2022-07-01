@@ -1,36 +1,36 @@
 - content_for :jumbotron do
     = @form.name
 
-.d-flex.justify-content-center.text-white.fs-3.mx-5.px-5.truncate
+.col-md-6.justify-content-center.text-center.text-white.fs-4.mx-auto
     = @form.description
 
 .row.mt-3
-    .col-6.mx-auto.text-white.p-3
+    .col-md-6.mx-auto.text-white.p-3
         -if @form.questions.present?
             -@form.questions.each do |question|
-                .row.bg-dark.rounded-pill.p-4.mb-3.fs-5
-                    .col= question.prompt.truncate(285)
+                = link_to new_form_response_path(@form), class: "text-white text-decoration-none" do
+                    .row.bg-dark.rounded.p-4.mb-1.fs-5
+                        .col= question.prompt.truncate(285)
         -else
             .text-center.text-white.fs-3.mx-5.px-5
                 This form has no questions.
 -if user_signed_in?
     -if current_user.forms.include?(@form)
-        .d-flex.justify-content-center.mb-5
-            = link_to "Back", my_forms_index_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-            = link_to "Edit Form", edit_form_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-            = link_to "View Responses", form_responses_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-            .dropdown
-        -# %button#dropdownMenuButton1.btn.btn-dark.btn-lg.w-25.rounded-pill.fs-3.mx-5.dropdown-toggle{"aria-expanded" => "false", "data-bs-toggle" => "dropdown", :type => "button"}
-        -#     Users
-        -# %ul.dropdown-menu{"aria-labelledby" => "dropdownMenuButton1"}
-        -#     - @form.users.each do |user|
-        -#         %li
-        -#         = user.username
+        .row.justify-content-center
+            .col-md-6
+                .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                    = link_to "Back", my_forms_index_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Edit", edit_form_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Responses", form_responses_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
     -else
-        .d-flex.justify-content-center.mb-5
-            = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-            = link_to "Create Response", new_form_response_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+        .row.justify-content-center
+            .col-md-6
+                .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                    = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Respond", new_form_response_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
 -else
-    .d-flex.justify-content-center.mb-5
-        = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
-        = link_to "Create Response", new_form_response_path(@form), class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+    .row.justify-content-center
+        .col-md-6
+            .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                = link_to "Back", forms_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                = link_to "Respond", new_form_response_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"

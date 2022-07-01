@@ -1,8 +1,8 @@
 - content_for :jumbotron do
   Forgot your password?
-.row
-  .col-2.mx-auto
-    .row.text-white.text-center
+.row.justify-content-center
+  .col-md-2.mx-auto
+    .d-flex.text-white.text-center.justify-content-center
       = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
         = render "devise/shared/error_messages", resource: resource
         .field.my-2

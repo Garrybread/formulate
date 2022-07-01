@@ -1,28 +1,36 @@
 - content_for :jumbotron do
     My Forms
 
-.d-flex.justify-content-center
-    = link_to "Home", root_path, class: "btn btn-dark btn-lg w-25 mx-5 mb-3 fs-3 rounded-pill"
+.row.justify-content-center
+    .col-md-3
+        .d-flex.justify-content-center
+            = link_to "Home", root_path, class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"
 
 - if user_signed_in?
-    .row
+    .row.justify-content-center
         -if current_user.forms.present?
-            .d-flex.justify-content-center.text-white.fs-1
+            .d-flex.justify-content-center.text-white.fs-1.text-center
                 Created Forms
-            .col-6.mx-auto.text-white.p-3
+            .col-md-6.mx-auto.text-white.p-3
                 - current_user.forms.each do |form|
                     = link_to form_path(form), class: "text-white text-decoration-none" do
-                        .row.bg-dark.rounded-pill.p-3.mb-3
-                            .col-6.fs-4= form.name
-                            .col-6.text-start.truncate.mt-2= form.description
+                        .row.bg-dark.rounded.border-white.p-3.mb-1
+                            .col
+                                .row.fs-3.mx-2= form.name
+                                .row.text-start.truncate.fs-5.mt-1.mx-2= "Created by #{form.users.first.username}"
+                                .row
+                                    .col.text-start.truncate.mt-1.me-1.fs-5.ms-2= form.description
         -else
-            .d-flex.justify-content-center.text-white.fs-1.my-3
+            .d-flex.justify-content-center.text-white.fs-1.my-3.text-center
                 You have no forms!
-        .d-flex.justify-content-center.text-white.fs-1
-        = link_to "Create New Form", new_form_path, class: "btn btn-dark fs-3 w-25 mb-5 mx-auto px-5 py-2 rounded-pill"
+        .row.justify-content-center
+            .col-md-6
+                = link_to "Create New Form", new_form_path, class: "btn btn-dark fs-3 w-100 mb-5 py-2 rounded-pill"
 - else
     .row
-        .d-flex.justify-content-center.text-white.fs-1
+        .d-flex.justify-content-center.text-white.fs-1.my-3.text-center
             Log in to begin creating forms.
-        .d-flex.justify-content-center.text-white.fs-1
-            = link_to "Log in", new_user_session_path, class: "btn btn-dark fs-5 my-3 mx-auto rounded-pill"
+        .row.justify-content-center.mt-3
+            .col-md-3
+                .d-flex.justify-content-center
+                    = link_to "Log in", new_user_session_path, class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"

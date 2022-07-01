@@ -7,25 +7,30 @@
         %ul.text-white.mx-5
             - form.errors.each do |error|
                 %li= error.full_message
-    .field.fs-2.mx-5.px-5
-        = f.label :name, "Name:", class: "form-label text-white"
-        = f.text_field :name, class: "form-control mb-3"
-    .field.fs-2.mx-5.mb-3.px-5
-        = f.label :description, "Description:", class: "form-label text-white"
-        = f.text_field :description, class: "form-control"
-    %template{"data-nested-form-target" => "template"}
-        = f.fields_for :questions, Question.new, child_index: 'NEW_RECORD' do |question_fields|
+    .col-md-11.mx-auto
+        .field.fs-2.mx-3
+            = f.label :name, "Name:", class: "form-label text-white"
+            = f.text_field :name, class: "form-control mb-3"
+        .field.fs-2.mb-3.mx-3
+            = f.label :description, "Description:", class: "form-label text-white"
+            = f.text_field :description, class: "form-control"
+        %template{"data-nested-form-target" => "template"}
+            = f.fields_for :questions, Question.new, child_index: 'NEW_RECORD' do |question_fields|
+                = render "question_form", f: question_fields
+        = f.fields_for :questions do |question_fields|
             = render "question_form", f: question_fields
-    = f.fields_for :questions do |question_fields|
-        = render "question_form", f: question_fields
-    %div{"data-nested-form-target" => "target"}
-    .d-flex.justify-content-center.mx-5.mt-3.mb-5
-        %button.form-label.btn.btn-dark.w-50.fs-4.rounded-pill.py-2{"data-action" => "nested-form#add", :type => "button"} Add Question
-    .actions(form_path)
-        .d-flex.justify-content-center.mx-5.px-5
-            = f.submit 'Save', class: "btn btn-dark btn-lg mx-4 w-25 fs-3 rounded-pill"
-            - if form.new_record?
-                = link_to 'Cancel', my_forms_index_path, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
-            - else
-                = link_to 'Cancel', form_path, class: "btn btn-dark btn-lg mx-5 w-25 fs-3 rounded-pill"
-                = link_to 'Delete Form', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-25 fs-3 mx-5 rounded-pill"
+        %div{"data-nested-form-target" => "target"}
+            .field.m-3
+                .row.justify-content-center
+                    .col-md-6
+                        %button.form-label.btn.btn-dark.w-100.fs-3.rounded-pill.py-2{"data-action" => "nested-form#add", :type => "button"} Add Question
+        .actions(form_path)
+            .row.justify-content-center
+                .col-md-6
+                    .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                        = f.submit 'Save', class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                        - if form.new_record?
+                            = link_to 'Cancel', my_forms_index_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                        - else
+                            = link_to 'Cancel', form_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                            = link_to 'Delete', @form, method: :delete, data: { confirm: 'Are you sure you want to delete ' + @form.name + '?' }, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"

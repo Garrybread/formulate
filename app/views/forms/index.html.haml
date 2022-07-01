@@ -1,14 +1,16 @@
 - content_for :jumbotron do
     Explore
 
-.d-flex.justify-content-center
-    = link_to "Home", root_path, class: "btn btn-dark btn-lg w-25 mx-5 mb-3 fs-3 rounded-pill"
+.row.justify-content-center
+    .col-md-3
+        .d-flex.justify-content-center
+            = link_to "Home", root_path, class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"
 .row
     .d-flex.justify-content-center.text-white.fs-1
         All  Forms
-    .col-6.mx-auto.text-white.p-3
+    .col-md-6.mx-auto.text-white.p-3
         = form_tag "/forms", method: "GET" do
-            .row.mb-3
+            .row.mb-3.mx-auto
                 .col-10.p-0
                     = text_field_tag :search_by_name, params[:search_by_name], placeholder: "Form name...", class: "text-white bg-dark form-control"
                 .col-2.p-0
@@ -16,7 +18,9 @@
                         = submit_tag "Search", class: "btn-dark w-100 btn border-white"
         - @forms.order(:name).each do |form|
             = link_to form_path(form), class: "text-white text-decoration-none" do
-                .row.bg-dark.rounded-pill.p-3.mb-3
-                    .col-6.fs-4= form.name
-                    .col-2.fs-4= form.users.first.username
-                    .col-4.text-start.truncate.mt-2= form.description
+                .row.bg-dark.rounded.border-white.p-3.mb-1
+                    .col
+                        .row.fs-3.mx-2= form.name
+                        .row.text-start.truncate.fs-5.mt-1.mx-2= "Created by #{form.users.first.username}"
+                        .row
+                            .col.text-start.truncate.mt-1.me-1.fs-5.ms-2= form.description

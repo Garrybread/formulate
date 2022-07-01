@@ -1,6 +1,8 @@
 - content_for :jumbotron do
     Formulate
-.d-flex.justify-content-center
-    = link_to 'Explore', forms_path, class: "btn btn-dark btn-lg mx-5 my-5 w-25 fs-3 rounded-pill"
-    = link_to 'My Forms', my_forms_index_path, class: "btn btn-dark btn-lg mx-5 my-5 w-25 fs-3 rounded-pill"
-%div.fs-3.fst-italic.text-center.text-secondary.mt-5.pt-5 Formulate makes creating forms, surveys, and applications easy and provides painless response management.
+.row.justify-content-center
+    .col-md-6
+        .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+            = link_to 'Explore', forms_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+            = link_to 'My Forms', my_forms_index_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+%div.fs-3.fst-italic.text-center.text-secondary.mt-5.mx-3.pt-5 Formulate makes creating forms, surveys, and applications easy and provides painless response management.
