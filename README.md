@@ -6,7 +6,7 @@ and provides painless response management.
 # Order Of New Issues
 This is the order in which I would recommend completing the issues I'm opening:
 
-- [ ] Mobile Responsive
+- [x] Mobile Responsive
 - [ ] Response Management/Folders
 - [ ] Different Question Types
 - [ ] Export Form
