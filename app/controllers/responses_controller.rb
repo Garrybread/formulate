@@ -1,5 +1,5 @@
 class ResponsesController < ApplicationController
-    before_action :set_response, only: [:show]
+    before_action :set_response, only: [:show, :destroy]
     before_action :set_form
 
     def create
@@ -20,7 +20,8 @@ class ResponsesController < ApplicationController
     end
 
     def index
-        @responses = Response.all
+        @q = @form.responses.ransack(params[:q])
+        @responses = @q.result.reverse_order
     end
 
     def destroy

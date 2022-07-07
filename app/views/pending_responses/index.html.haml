@@ -1,0 +1,27 @@
+-if user_signed_in?
+    -if current_user.forms.include?(@form)
+        - content_for :jumbotron do
+            Responses
+
+        .row.justify-content-center
+            .col-md-3
+                .d-flex.justify-content-center.mb-3
+                    = link_to "Back", form_responses_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 mx-5 rounded-pill"
+        .row
+            .d-flex.justify-content-center.text-white.fs-1
+                Pending Responses
+        .row.justify-content-center
+            .col-md-6.mx-auto.text-white.p-3
+                -if @form.responses.pending.present?
+                    - @form.responses.pending.each_with_index do |response, index|
+                        = link_to form_response_path(@form, response), class: "text-white text-decoration-none" do
+                            .row.bg-dark.rounded.border-white.p-3.mb-1
+                                .col
+                                    .row.fs-3.mx-2= "Response ##{@form.responses.find_index(response) + 1}"
+                -else
+                    .text-center.text-white.fs-3.mx-5.px-5
+                        No responses found!
+    -else
+        -controller.redirect_to form_path(@form)
+-else
+    -controller.redirect_to form_path(@form)
