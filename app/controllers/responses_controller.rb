@@ -33,11 +33,7 @@ class ResponsesController < ApplicationController
     private
 
     def validate_user_permission
-        if user_signed_in?
-            unless current_user.forms.include?(@form)
-                redirect_to form_url(@form)
-            end
-        else
+        unless user_signed_in? && current_user.forms.include?(@form)
             redirect_to form_url(@form)
         end
     end
