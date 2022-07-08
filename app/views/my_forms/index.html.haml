@@ -9,8 +9,6 @@
 - if user_signed_in?
     .row.justify-content-center
         -if current_user.forms.present?
-            .d-flex.justify-content-center.text-white.fs-1.text-center
-                Created Forms
             .col-md-6.mx-auto.text-white.p-3
                 - current_user.forms.each do |form|
                     = link_to form_path(form), class: "text-white text-decoration-none" do
@@ -27,10 +25,9 @@
             .col-md-6
                 = link_to "Create New Form", new_form_path, class: "btn btn-dark fs-3 w-100 mb-5 py-2 rounded-pill"
 - else
-    .row
+    .row.justify-content-center
         .d-flex.justify-content-center.text-white.fs-1.my-3.text-center
             Log in to begin creating forms.
-        .row.justify-content-center.mt-3
-            .col-md-3
-                .d-flex.justify-content-center
-                    = link_to "Log in", new_user_session_path, class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"
+        .col-md-3
+            .d-flex.justify-content-center
+                = link_to "Log in", new_user_session_path, class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"

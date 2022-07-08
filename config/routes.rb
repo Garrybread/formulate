@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   get 'my_forms/index'
-  resources :forms do 
-    resources :responses, except: [:edit, :update]
+  resources :forms do
+    resources :responses, except: [:edit, :update] do
+      resources :response_states, only: [:create]
+    end
   end
   get 'home/index'
   devise_for :users
