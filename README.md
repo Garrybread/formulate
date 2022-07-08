@@ -8,6 +8,7 @@ This is the order in which I would recommend completing the issues I'm opening:
 
 - [x] Mobile Responsive
 - [ ] Response Management/Folders
+- [ ] Sharing Forms Between Users
 - [ ] Different Question Types
 - [ ] Export Form
 - [ ] Clone Form
