@@ -19,7 +19,7 @@
                     = link_to form_response_path(@form, response), class: "text-white text-decoration-none" do
                         .row.bg-dark.rounded.border-white.p-3.mb-1
                             .col
-                                .row.fs-3.mx-2= "Response #{@form.responses.find_index(response) + 1} | #{response.created_at.to_date} | #{response.aasm_state.titleize}"
+                                .row.fs-3.mx-2= "Response #{@form.responses.find_index(response) + 1} | #{response.created_at.strftime("%b %d, %Y")} | #{response.aasm_state.titleize}"
             - else
                 .text-center.text-white.fs-3.mx-5.px-5
                     No responses found!

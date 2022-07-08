@@ -24,9 +24,9 @@
         .col-md-6
             .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
                 - unless @response.approved?
-                    = link_to "Approve", form_response_response_state_create_path(@form, @response, aasm_state: 'approve'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Approve", form_response_response_states_path(@form, @response, aasm_state: 'approve'), method: :post, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
                 - unless @response.declined?
-                    = link_to "Decline", form_response_response_state_create_path(@form, @response, aasm_state: 'decline'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Decline", form_response_response_states_path(@form, @response, aasm_state: 'decline'), method: :post, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
                 - unless @response.pending?
-                    = link_to "Repend", form_response_response_state_create_path(@form, @response, aasm_state: 'repend'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                    = link_to "Repend", form_response_response_states_path(@form, @response, aasm_state: 'repend'), method: :post, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
                 = link_to "Delete", form_response_path(@form, @response), method: :delete, data: { confirm: 'Are you sure you want to delete this response?' }, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"

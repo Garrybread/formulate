@@ -1,4 +1,4 @@
-class ResponseStateController < ApplicationController
+class ResponseStatesController < ApplicationController
   before_action :set_form
   before_action :set_response
 
