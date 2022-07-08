@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     resources :responses, except: [:edit, :update] do
       get 'response_state/create'
     end
-    resources :pending_responses
   end
   get 'home/index'
   devise_for :users
