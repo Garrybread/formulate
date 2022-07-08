@@ -1,7 +1,7 @@
 class Response < ApplicationRecord
   include AASM
   
-  default_scope { order(created_at: :desc) }
+  default_scope { order(:created_at) }
 
   belongs_to :form
   has_many :question_responses

@@ -1,34 +1,28 @@
--if user_signed_in?
-    -if current_user.forms.include?(@form)
-        - content_for :jumbotron do
-            Responses
+- content_for :jumbotron do
+    Responses
 
-        .row.justify-content-center
-            .col-md-3
-                .d-flex.justify-content-center.mb-3
-                    = link_to "Back", form_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 mx-5 rounded-pill"
-        .row.justify-content-center
-            .col-md-6.mx-auto.text-white.p-3
-                -if @form.responses.present?
-                    = search_form_for @q, url: form_responses_path do |f|
-                        .row.mb-3.mx-1
-                            .col-10.p-0
-                                = f.select :aasm_state_cont, Response.aasm.states.map {|r| [r.to_s.titleize, r]}, { include_blank: "All Responses" }, {class: "form-select text-white bg-dark w-100"}            
-                            .col-2.p-0
-                                = f.submit "Sort", class: "btn-dark btn border-white w-100"
-                    -if @responses.present?
-                        - @responses.each do |response|
-                            = link_to form_response_path(@form, response), class: "text-white text-decoration-none" do
-                                .row.bg-dark.rounded.border-white.p-3.mb-1
-                                    .col
-                                        .row.fs-3.mx-2= "Response #{@form.responses.reverse_order.find_index(response) + 1} | #{response.aasm_state.titleize}"
-                    -else
-                        .text-center.text-white.fs-3.mx-5.px-5
-                            No responses found!
-                -else
-                    .text-center.text-white.fs-3.mx-5.px-5
-                        No responses found!
-    -else
-        -controller.redirect_to form_path(@form)
--else
-    -controller.redirect_to form_path(@form)
+.row.justify-content-center
+    .col-md-3
+        .d-flex.justify-content-center.mb-3
+            = link_to "Back", form_path(@form), class: "btn btn-dark btn-lg w-100 fs-3 mx-5 rounded-pill"
+.row.justify-content-center
+    .col-md-6.mx-auto.text-white.p-3
+        - if @form.responses.present?
+            = search_form_for @q, url: form_responses_path do |f|
+                .row.mb-3.mx-1
+                    .col-10.p-0
+                        = f.select :aasm_state_cont, Response.aasm.states.map {|r| [r.to_s.titleize, r]}, { include_blank: "All Responses" }, {class: "form-select text-white bg-dark w-100"}            
+                    .col-2.p-0
+                        = f.submit "Sort", class: "btn-dark btn border-white w-100"
+            - if @responses.present?
+                - @responses.each do |response|
+                    = link_to form_response_path(@form, response), class: "text-white text-decoration-none" do
+                        .row.bg-dark.rounded.border-white.p-3.mb-1
+                            .col
+                                .row.fs-3.mx-2= "Response #{@form.responses.find_index(response) + 1} | #{response.created_at.to_date} | #{response.aasm_state.titleize}"
+            - else
+                .text-center.text-white.fs-3.mx-5.px-5
+                    No responses found!
+        - else
+            .text-center.text-white.fs-3.mx-5.px-5
+                No responses found!

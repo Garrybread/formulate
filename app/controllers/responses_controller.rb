@@ -1,6 +1,7 @@
 class ResponsesController < ApplicationController
     before_action :set_response, only: [:show, :destroy]
     before_action :set_form
+    before_action :validate_user_permission, except: [:create, :new]
 
     def create
         @response = @form.responses.new(response_params)
@@ -21,7 +22,7 @@ class ResponsesController < ApplicationController
 
     def index
         @q = @form.responses.ransack(params[:q])
-        @responses = @q.result.reverse_order
+        @responses = @q.result
     end
 
     def destroy
@@ -30,6 +31,16 @@ class ResponsesController < ApplicationController
     end
 
     private
+
+    def validate_user_permission
+        if user_signed_in?
+            unless current_user.forms.include?(@form)
+                redirect_to form_url(@form)
+            end
+        else
+            redirect_to form_url(@form)
+        end
+    end
 
     def set_response
         @response = Response.find(params[:id])

@@ -1,38 +1,32 @@
--if user_signed_in?
-    -if current_user.forms.include?(@form)
-        - content_for :jumbotron do
-            - if @response.pending?
-                = "Response ##{@form.responses.find_index(@response) + 1}: Pending"
-            - elsif @response.approved?
-                = "Response ##{@form.responses.find_index(@response) + 1}: Approved"
-            - elsif @response.declined?
-                = "Response ##{@form.responses.find_index(@response) + 1}: Declined"
+- content_for :jumbotron do
+    - if @response.pending?
+        = "Response ##{@form.responses.find_index(@response) + 1}: Pending"
+    - elsif @response.approved?
+        = "Response ##{@form.responses.find_index(@response) + 1}: Approved"
+    - elsif @response.declined?
+        = "Response ##{@form.responses.find_index(@response) + 1}: Declined"
 
-        .row.justify-content-center
-            .col-md-3
-                .d-flex.justify-content-center
-                    = link_to "Back", form_responses_path(@form), class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"
-        .row.justify-content-center
-            .col-md-6.mx-auto.text-white.p-3
-                - @response.question_responses.order(:created_at).each do |question_response|
-                    .row.bg-dark.rounded.border-white.p-3.mb-1
-                        .col
-                            .row.fs-3.mx-2= question_response.question.prompt
-                    .row.bg-dark.rounded.border-white.p-3.mb-3
-                        .col
-                            .row.fs-5.mt-1.mx-2= question_response.answer
-        .actions
-            .row.justify-content-center
-                .col-md-6
-                    .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
-                        - if not @response.approved?
-                            = link_to "Approve", form_response_response_state_create_path(@form, @response, aasm_state: 'approve'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
-                        - if not @response.declined?
-                            = link_to "Decline", form_response_response_state_create_path(@form, @response, aasm_state: 'decline'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
-                        - if not @response.pending?
-                            = link_to "Repend", form_response_response_state_create_path(@form, @response, aasm_state: 'repend'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
-                        = link_to "Delete", form_response_path(@form, @response), method: :delete, data: { confirm: 'Are you sure you want to delete this response?' }, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
-    -else
-        -controller.redirect_to form_path(@form)
--else
-    -controller.redirect_to form_path(@form)
+.row.justify-content-center
+    .col-md-3
+        .d-flex.justify-content-center
+            = link_to "Back", form_responses_path(@form), class: "btn btn-dark btn-lg w-100 mx-5 mb-3 fs-3 rounded-pill"
+.row.justify-content-center
+    .col-md-6.mx-auto.text-white.p-3
+        - @response.question_responses.order(:created_at).each do |question_response|
+            .row.bg-dark.rounded.border-white.p-3.mb-1
+                .col
+                    .row.fs-3.mx-2= question_response.question.prompt
+            .row.bg-dark.rounded.border-white.p-3.mb-3
+                .col
+                    .row.fs-5.mt-1.mx-2= question_response.answer
+.actions
+    .row.justify-content-center
+        .col-md-6
+            .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                - unless @response.approved?
+                    = link_to "Approve", form_response_response_state_create_path(@form, @response, aasm_state: 'approve'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                - unless @response.declined?
+                    = link_to "Decline", form_response_response_state_create_path(@form, @response, aasm_state: 'decline'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                - unless @response.pending?
+                    = link_to "Repend", form_response_response_state_create_path(@form, @response, aasm_state: 'repend'), class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
+                = link_to "Delete", form_response_path(@form, @response), method: :delete, data: { confirm: 'Are you sure you want to delete this response?' }, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
