@@ -1,6 +1,6 @@
 .nested-form-wrapper
-    .col-md-12.mx-auto
-        .field.fs-3.mx-3.mb-2
+    .col-md-12
+        .field.fs-3
             = f.label :prompt, "Question:", class: "form-label text-white fs-4"
             = f.text_field :prompt, class: "form-control mb-3"
             %button.form-label.btn.btn-dark.fs-5.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} Remove Question
