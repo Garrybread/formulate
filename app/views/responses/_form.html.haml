@@ -1,16 +1,16 @@
 = form_with(model: response, url: form_responses_path) do |f|
     - if response.errors.any?
         #error explanation
-        %h2.text-white.mx-5
+        %h2.text-white
             = pluralize(response.errors.count, "error")
             with your response:
-        %ul.text-white.mx-5
+        %ul.text-white
             - response.errors.each do |error|
                 %li= error.full_message
     - @form.questions.each do |question|
         = f.fields_for :question_responses, QuestionResponse.new(question: question) do |qrf|
             = qrf.hidden_field :question_id
-            .col-md-11.mx-auto
+            .col-md-6.mx-auto
                 .field.fs-2.mx-3
                     = qrf.label :answer, question.prompt, class: "form-label text-white"
                     = qrf.text_field :answer, class: "form-control mb-5"

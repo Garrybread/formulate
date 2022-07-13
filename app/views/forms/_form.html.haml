@@ -7,11 +7,11 @@
         %ul.text-white.mx-5
             - form.errors.each do |error|
                 %li= error.full_message
-    .col-md-11.mx-auto
-        .field.fs-2.mx-3
+    .col-md-6.mx-auto
+        .field.fs-2
             = f.label :name, "Name:", class: "form-label text-white"
             = f.text_field :name, class: "form-control mb-3"
-        .field.fs-2.mb-3.mx-3
+        .field.fs-2.mb-3
             = f.label :description, "Description:", class: "form-label text-white"
             = f.text_field :description, class: "form-control"
         %template{"data-nested-form-target" => "template"}
@@ -20,14 +20,18 @@
         = f.fields_for :questions do |question_fields|
             = render "question_form", f: question_fields
         %div{"data-nested-form-target" => "target"}
-            .field.m-3
+            .field.mb-3
                 .row.justify-content-center
                     .col-md-6
-                        %button.form-label.btn.btn-dark.w-100.fs-3.rounded-pill.py-2{"data-action" => "nested-form#add", :type => "button"} Add Question
+                        %button.form-label.btn.btn-dark.w-100.fs-3.rounded-pill{"data-action" => "nested-form#add", :type => "button"} Add Question
+        .row.justify-content-center
+            .d-flex.justify-content-center.text-center.text-white.fs-3
+                Enable other users to edit this form and view responses:
+            = f.select :user_ids, User.all.map {|u| [u.username, u.id]}, {}, {:multiple => true, class: "form-select text-white bg-dark w-100", data: { controller: "select2" }}
         .actions(form_path)
             .row.justify-content-center
                 .col-md-6
-                    .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-1
+                    .d-grid.gap-2.d-md-flex.justify-content-md-center.mb-3.mt-5
                         = f.submit 'Save', class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
                         - if form.new_record?
                             = link_to 'Cancel', my_forms_index_path, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"

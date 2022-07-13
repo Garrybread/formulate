@@ -41,18 +41,13 @@ class FormsController < ApplicationController
         redirect_to my_forms_index_url, notice: "Form was successfully deleted."
     end
 
-    def add_user
-        @form.users << current_user
-    end
-
     private
-
     def set_form
         @form = Form.find(params[:id])
     end
 
     def form_params
-        params.require(:form).permit(:name, :description, questions_attributes: [:id, :_destroy, :prompt])
+        params.require(:form).permit(:name, :description, user_ids: [], questions_attributes: [:id, :_destroy, :prompt])
     end
 
 end
