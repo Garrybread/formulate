@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_18_184412) do
+ActiveRecord::Schema.define(version: 2022_07_18_211255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,12 +22,21 @@ ActiveRecord::Schema.define(version: 2022_07_18_184412) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "options", force: :cascade do |t|
+    t.string "text", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_options_on_question_id"
+  end
+
   create_table "question_responses", force: :cascade do |t|
-    t.text "answer", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "response_id"
+    t.text "answer"
+    t.bigint "option_id"
     t.index ["question_id"], name: "index_question_responses_on_question_id"
     t.index ["response_id"], name: "index_question_responses_on_response_id"
   end
@@ -38,6 +47,7 @@ ActiveRecord::Schema.define(version: 2022_07_18_184412) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "question_type_id"
+    t.bigint "option_id"
     t.index ["form_id"], name: "index_questions_on_form_id"
   end
 
@@ -71,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_07_18_184412) do
     t.index ["user_id"], name: "index_users_forms_on_user_id"
   end
 
+  add_foreign_key "options", "questions"
   add_foreign_key "question_responses", "questions"
   add_foreign_key "questions", "forms"
   add_foreign_key "responses", "forms"

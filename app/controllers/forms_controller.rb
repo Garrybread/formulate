@@ -12,6 +12,11 @@ class FormsController < ApplicationController
     def create
         @form = current_user.forms.new(form_params)
         if @form.save
+            @form.questions.each do |question|
+                unless question.question_type.has_options
+                    question.options.destroy_all
+                end
+            end
             redirect_to form_url(@form), notice: "Form was successfully created."
         else
             render :new, status: :unprocessable_entity
@@ -30,6 +35,11 @@ class FormsController < ApplicationController
 
     def update
         if @form.update(form_params)
+            @form.questions.each do |question|
+                unless question.question_type.has_options
+                    question.options.destroy_all
+                end
+            end
             redirect_to form_url(@form), notice: "Form was successfully updated."
         else
             render :edit, status: :unprocessable_entity
@@ -47,7 +57,7 @@ class FormsController < ApplicationController
     end
 
     def form_params
-        params.require(:form).permit(:name, :description, user_ids: [], questions_attributes: [:id, :_destroy, :prompt])
+        params.require(:form).permit(:name, :description, user_ids: [], questions_attributes: [:id, :_destroy, :prompt, :question_type_id, options_attributes: [:id, :text, :_destroy]])
     end
 
 end

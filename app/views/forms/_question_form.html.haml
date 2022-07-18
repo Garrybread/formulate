@@ -1,8 +1,25 @@
-.nested-form-wrapper
-    .col-md-12
-        .field.fs-3
-            = f.label :prompt, "Question:", class: "form-label text-white fs-4"
-            = f.text_field :prompt, class: "form-control mb-3"
-            %button.form-label.btn.btn-dark.fs-5.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} Remove Question
-            = f.hidden_field :_destroy
-        
+.nested-form-wrapper{data: { controller: 'nested-form question-type-checker', nested_form_wrapper_selector_value: '.nested-form-wrapper'}}
+    .col-md-12.mt-5
+        .field
+            = f.text_field :prompt, placeholder: "Prompt...", class: "form-control fs-5"
+        .field
+            .row 
+                .col-md-6
+                    = f.select :question_type_id, QuestionType.all.map {|q| [q.name.titleize, q.id]}, {include_blank: "Select Question Type"}, {class: "form-select fs-5 py-2 mt-2", data: {question_type_checker_target: "input", action: "change->question-type-checker#questionTypeChanged"} }
+                .col-md-6
+                    %button.form-label.btn.btn-dark.btn-outline-light.fs-4.rounded-pill.w-100.mt-2{"data-action" => "nested-form#remove", :type => "button"} Remove Question
+                    = f.hidden_field :_destroy
+        %div{data: {question_type_checker_target: "optionsWrapper"}}
+            %template{"data-nested-form-target" => "template"}
+                = f.fields_for :options, Option.new, child_index: 'NEW_RECORD' do |option_fields|
+                    = render "option_form", f: option_fields
+            = f.fields_for :options do |option_fields|
+                = render "option_form", f: option_fields
+            %div{"data-nested-form-target" => "target"}
+                .field.mb-3
+                    .row
+                        .col-md-6
+                            .row.justify-content-center
+                                .col-10
+                                .col-1
+                                    %button.form-label.btn.btn-dark.btn-outline-light.rounded-pill{"data-action" => "nested-form#add", :type => "button"} +

@@ -1,0 +1,10 @@
+.nested-form-wrapper
+    .row
+        .col-md-6
+            .row.justify-content-center
+                .col-10
+                    .field
+                        = f.text_field :text, placeholder: "Option...", class: "form-control mb-3"
+                .col-1
+                    %button.form-label.btn.btn-dark.btn-outline-light.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} -
+                    = f.hidden_field :_destroy

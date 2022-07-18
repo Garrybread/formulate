@@ -10,7 +10,15 @@
             -@form.questions.each do |question|
                 = link_to new_form_response_path(@form), class: "text-white text-decoration-none" do
                     .row.bg-dark.rounded.p-4.mb-1.fs-5
-                        .col= question.prompt.truncate(285)
+                        .col
+                            .row
+                                = question.prompt.truncate(285)
+                            .row
+                                -question.options.each do |option|
+                                    -unless option == question.options.last
+                                        = "#{option.text} •"
+                                    -else
+                                        = option.text
         -else
             .text-center.text-white.fs-3.mx-5.px-5
                 This form has no questions.
