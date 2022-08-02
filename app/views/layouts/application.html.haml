@@ -10,5 +10,13 @@
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = render 'layouts/navigation'
+    - if flash[:notice]
+      .alert.alert-warning.alert-dismissible.fade.show{:role => "alert"}
+        = flash[:notice]
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
+    - if flash[:alert]
+      .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
+        = flash[:alert]
+        %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
     = render 'layouts/jumbotron'
     = yield

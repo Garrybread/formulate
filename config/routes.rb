@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'my_forms/index'
   resources :forms do
+    resources :copy, only: [:create], controller: "form_copy"
     resources :responses, except: [:edit, :update] do
       resources :response_states, only: [:create]
     end

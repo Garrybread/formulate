@@ -4,6 +4,9 @@
             Editing:
             = @form.name
         = render 'form', form: @form
+        .row.justify-content-center
+            .col-md-3
+                = link_to "Create Form Copy", form_copy_index_path(@form), method: :post, class: "btn btn-dark btn-lg w-100 fs-3 rounded-pill"
     -else
         -controller.redirect_to form_path(@form)
 -else
