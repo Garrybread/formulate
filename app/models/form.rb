@@ -2,6 +2,7 @@ class Form < ApplicationRecord
     
     validates :name, presence: true, uniqueness: true
     validates :description, presence: true
+    validates :users, presence: true
 
     has_many :questions, index_errors: true, dependent: :destroy
     has_many :responses, dependent: :destroy
