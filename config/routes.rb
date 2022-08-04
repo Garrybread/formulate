@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :stores
   get 'my_forms/index'
   resources :forms do
     resources :copy, only: [:create], controller: "form_copy"

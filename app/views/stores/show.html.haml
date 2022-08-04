@@ -1,0 +1,32 @@
+.d-flex.justify-content-center
+  %p#notice= notice
+  .col-md-2
+    .row
+      %p.text-white
+        %b Name:
+        = @store.name
+    .row
+      %p.text-white
+        %b Street:
+        = @store.street
+    .row
+      %p.text-white
+        %b City:
+        = @store.city
+    .row
+      %p.text-white
+        %b State:
+        = @store.state
+      .row
+      %p.text-white
+        %b Country:
+        = @store.country
+    .row
+      .col
+        = link_to 'Edit', edit_store_path(@store), class: "btn btn-dark"
+      .col
+        = link_to 'Back', stores_path, class: "btn btn-dark"
+    .row
+      - if @store.photo.attached?
+        = image_tag @store.photo
+        

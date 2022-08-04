@@ -1,0 +1,31 @@
+%h1.text-white Listing stores
+
+%table.text-white.table
+  %thead
+    %tr
+      %th Thumbnail
+      %th Name
+      %th Address
+      %th City
+      %th State
+      %th Country
+      %th
+      %th
+      %th
+
+  %tbody
+    - @stores.each do |store|
+      %tr
+        %td= image_tag store.photo.variant(resize_to_fill: [100, 100])
+        %td= store.name
+        %td= store.street
+        %td= store.city
+        %td= store.state
+        %td= store.country
+        %td= link_to 'Show', store, class: "btn btn-dark"
+        %td= link_to 'Edit', edit_store_path(store), class: "btn btn-dark"
+        %td= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark"
+
+%br
+
+= link_to 'New Store', new_store_path

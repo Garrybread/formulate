@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_01_201713) do
+ActiveRecord::Schema.define(version: 2022_08_03_202645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "forms", force: :cascade do |t|
     t.string "name", null: false
@@ -22,12 +50,21 @@ ActiveRecord::Schema.define(version: 2022_07_01_201713) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "options", force: :cascade do |t|
+    t.string "text", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_options_on_question_id"
+  end
+
   create_table "question_responses", force: :cascade do |t|
-    t.text "answer", null: false
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "response_id"
+    t.text "answer"
+    t.bigint "option_id"
     t.index ["question_id"], name: "index_question_responses_on_question_id"
     t.index ["response_id"], name: "index_question_responses_on_response_id"
   end
@@ -37,6 +74,8 @@ ActiveRecord::Schema.define(version: 2022_07_01_201713) do
     t.bigint "form_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "question_type_id"
+    t.bigint "option_id"
     t.index ["form_id"], name: "index_questions_on_form_id"
   end
 
@@ -46,6 +85,18 @@ ActiveRecord::Schema.define(version: 2022_07_01_201713) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "aasm_state"
     t.index ["form_id"], name: "index_responses_on_form_id"
+  end
+
+  create_table "stores", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "latitude"
+    t.float "longitude"
+    t.string "street"
+    t.string "country"
   end
 
   create_table "users", force: :cascade do |t|
@@ -70,6 +121,9 @@ ActiveRecord::Schema.define(version: 2022_07_01_201713) do
     t.index ["user_id"], name: "index_users_forms_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "options", "questions"
   add_foreign_key "question_responses", "questions"
   add_foreign_key "questions", "forms"
   add_foreign_key "responses", "forms"

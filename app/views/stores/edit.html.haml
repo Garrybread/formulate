@@ -1,0 +1,11 @@
+.d-flex.justify-content-center
+    .col-md-2
+        .row
+            %h1.text-white Editing store
+        .row
+            = render 'form'
+        .row
+            .col
+                = link_to 'Show', @store, class: "btn btn-dark"
+            .col 
+                = link_to 'Back', stores_path, class: "btn btn-dark"
