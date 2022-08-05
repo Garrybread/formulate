@@ -29,4 +29,4 @@
     .row
       - if @store.photo.attached?
         = image_tag @store.photo
-        
+    %iframe{:allowfullscreen => "", :height => "450", :loading => "lazy", :src => "https://www.google.com/maps/embed/v1/place?q=#{@store.latitude}%2C%20#{@store.longitude}&key=AIzaSyDD4mJzxK8STY8f5LOcGRRbymOcqCPiA40", :style => "border:0", :width => "600"}

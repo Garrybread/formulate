@@ -1,14 +1,36 @@
-%h1.text-white Listing stores
+%h1.text-white.mx-5.my-5 Stores
 
-%table.text-white.table
+.row.mx-5.mb-5
+  .col
+    = search_form_for @q do |f|
+      = f.label :name_cont, "Search by name", class: "text-white"
+      = f.search_field :name_cont
+  .col
+    = search_form_for @q do |f|
+      = f.label :street_cont, "Search by street", class: "text-white"
+      = f.search_field :street_cont
+  .col
+    = search_form_for @q do |f|
+      = f.label :city_cont, "Search by city", class: "text-white"
+      = f.search_field :city_cont
+  .col
+    = search_form_for @q do |f|
+      = f.label :state_cont, "Search by state", class: "text-white"
+      = f.search_field :state_cont
+  .col
+    = search_form_for @q do |f|
+      = f.label :country_cont, "Search by country", class: "text-white"
+      = f.search_field :country_cont
+
+%table.text-white.table.mx-5
   %thead
     %tr
-      %th Thumbnail
-      %th Name
-      %th Address
-      %th City
-      %th State
-      %th Country
+      %th Sort by:
+      %th= sort_link(@q, :name)
+      %th= sort_link(@q, :street)
+      %th= sort_link(@q, :city)
+      %th= sort_link(@q, :state)
+      %th= sort_link(@q, :country)
       %th
       %th
       %th

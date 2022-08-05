@@ -3,7 +3,8 @@ class StoresController < ApplicationController
 
   # GET /stores or /stores.json
   def index
-    @stores = Store.all
+    @q = Store.ransack(params[:q])
+    @stores = @q.result(distinct: true)  
   end
 
   # GET /stores/1 or /stores/1.json
