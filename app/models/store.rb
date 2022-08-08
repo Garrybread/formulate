@@ -1,6 +1,6 @@
 class Store < ApplicationRecord
 
-    validates :name, presence: true, uniqueness: true
+    validates :name, presence: true
     validates :street, presence: true
     validates :city, presence: true
     validates :state, presence: true
@@ -9,6 +9,10 @@ class Store < ApplicationRecord
     # validate :validate_address
 
     has_one_attached :photo
+    has_many :products, index_errors: true, dependent: :destroy
+
+    accepts_nested_attributes_for :products, reject_if: :all_blank, allow_destroy: true
+    validates_associated :products
 
     # before_save :set_pos
 

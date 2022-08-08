@@ -1,0 +1,16 @@
+.nested-form-wrapper
+    .col-md-12
+        .field.fs-3
+            = f.label :name, class: "form-label text-white fs-4"
+            = f.text_field :name, class: "form-control mb-3"
+        .field.fs-3
+            = f.label :description, class: "form-label text-white fs-4"
+            = f.text_field :description, class: "form-control mb-3"
+        .field.fs-3
+            = f.label :price, class: "form-label text-white fs-4"
+            = f.text_field :price, class: "form-control mb-3"
+        .field.text-white
+            = f.file_field :photos, multiple: true
+            %button.form-label.btn.btn-dark.fs-5.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} Delete Product
+            = f.hidden_field :_destroy
+        

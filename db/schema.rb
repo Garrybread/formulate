@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_03_202645) do
+ActiveRecord::Schema.define(version: 2022_08_05_201103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,16 @@ ActiveRecord::Schema.define(version: 2022_08_03_202645) do
     t.index ["question_id"], name: "index_options_on_question_id"
   end
 
+  create_table "products", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.float "price", null: false
+    t.bigint "store_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_id"], name: "index_products_on_store_id"
+  end
+
   create_table "question_responses", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -97,6 +107,7 @@ ActiveRecord::Schema.define(version: 2022_08_03_202645) do
     t.float "longitude"
     t.string "street"
     t.string "country"
+    t.bigint "product_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -124,6 +135,7 @@ ActiveRecord::Schema.define(version: 2022_08_03_202645) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "options", "questions"
+  add_foreign_key "products", "stores"
   add_foreign_key "question_responses", "questions"
   add_foreign_key "questions", "forms"
   add_foreign_key "responses", "forms"

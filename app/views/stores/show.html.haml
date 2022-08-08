@@ -1,6 +1,6 @@
 .d-flex.justify-content-center
   %p#notice= notice
-  .col-md-2
+  .col-md-2.mx-5
     .row
       %p.text-white
         %b Name:
@@ -29,4 +29,13 @@
     .row
       - if @store.photo.attached?
         = image_tag @store.photo
+    .row.text-white
+      - @store.products.each do |product|
+        .col= product.name
+        .col= product.description
+        .col= product.price
+        .col
+          - product.photos.each do |photo|
+            = image_tag photo.variant(resize_to_fill: [50, 50])
+  .col-md-2
     %iframe{:allowfullscreen => "", :height => "450", :loading => "lazy", :src => "https://www.google.com/maps/embed/v1/place?q=#{@store.latitude}%2C%20#{@store.longitude}&key=AIzaSyDD4mJzxK8STY8f5LOcGRRbymOcqCPiA40", :style => "border:0", :width => "600"}
