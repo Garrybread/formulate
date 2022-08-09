@@ -14,6 +14,9 @@
         .field.fs-2.mb-3
             = f.label :description, "Description:", class: "form-label text-white"
             = f.text_field :description, class: "form-control"
+        .field.fs-2.mb-3 
+            = f.label :banner, "Upload banner image:", class: "form-label text-white"
+            = f.file_field :banner, class: "form-control"
         %template{"data-nested-form-target" => "template"}
             = f.fields_for :questions, Question.new, child_index: 'NEW_RECORD' do |question_fields|
                 = render "question_form", f: question_fields

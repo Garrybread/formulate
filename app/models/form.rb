@@ -11,6 +11,8 @@ class Form < ApplicationRecord
     accepts_nested_attributes_for :questions, reject_if: :all_blank, allow_destroy: true
     validates_associated :questions
 
+    has_one_attached :banner
+
     amoeba do
         exclude_association [:responses]
         prepend :name => "Copy of "
