@@ -1,3 +1,2 @@
-.jumbotron.text-center.bg-dark.my-5.fs-sm-1
+.jumbotron.text-center.bg-dark.my-5.fs-sm-1{style: ("background-image: url('#{image_url}'); background-blend-mode: multiply; background-color: #707070 !important" if image_url.present?)}
   = content_for :jumbotron
-  style="background: url('= "#{ image_url: image_url}"');"
