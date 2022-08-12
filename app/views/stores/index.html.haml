@@ -1,52 +1,33 @@
-%h1.text-white.mx-5.my-5 Stores
-
+- content_for :jumbotron do
+  Stores
 .row.mx-5.mb-5
   .col
     = search_form_for @q do |f|
-      = f.label :name_cont, "Search by name", class: "text-white"
-      = f.search_field :name_cont
+      = f.search_field :name_cont, placeholder: "Search by name...", class: "text-white bg-dark form-control"
   .col
     = search_form_for @q do |f|
-      = f.label :street_cont, "Search by street", class: "text-white"
-      = f.search_field :street_cont
+      = f.search_field :street_cont, placeholder: "Search by street...", class: "text-white bg-dark form-control"
   .col
     = search_form_for @q do |f|
-      = f.label :city_cont, "Search by city", class: "text-white"
-      = f.search_field :city_cont
+      = f.search_field :city_cont, placeholder: "Search by city...", class: "text-white bg-dark form-control"
   .col
     = search_form_for @q do |f|
-      = f.label :state_cont, "Search by state", class: "text-white"
-      = f.search_field :state_cont
+      = f.search_field :state_cont, placeholder: "Search by state...", class: "text-white bg-dark form-control"
   .col
     = search_form_for @q do |f|
-      = f.label :country_cont, "Search by country", class: "text-white"
-      = f.search_field :country_cont
-
-%table.text-white.table.mx-5
-  %thead
-    %tr
-      %th Sort by:
-      %th= sort_link(@q, :name)
-      %th= sort_link(@q, :street)
-      %th= sort_link(@q, :city)
-      %th= sort_link(@q, :state)
-      %th= sort_link(@q, :country)
-      %th
-      %th
-      %th
-
-  %tbody
-    - @stores.each do |store|
-      %tr
-        %td= image_tag store.photo.variant(resize_to_fill: [100, 100])
-        %td= store.name
-        %td= store.street
-        %td= store.city
-        %td= store.state
-        %td= store.country
-        %td= link_to 'Show', store, class: "btn btn-dark"
-        %td= link_to 'Edit', edit_store_path(store), class: "btn btn-dark"
-        %td= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark"
+      = f.search_field :country_cont, placeholder: "Search by country...", class: "text-white bg-dark form-control"
+.col-md-8.mx-auto
+  - @stores.each do |store|
+    = link_to store_path(store), class: "text-white text-decoration-none" do
+      .row.my-3
+        .col-2.my-auto= image_tag store.photo.variant(resize_to_fill: [200, 125]), class: "rounded"
+        .col-10.text-white.bg-dark.rounded
+          .row.fs-3.mt-3
+            .col= "#{store.name}"
+          .row.fs-5.mt-3
+            .col="#{store.street} • #{store.city} • #{store.state} • #{store.country}"
+        -# .col.my-auto= link_to 'Edit', edit_store_path(store), class: "btn btn-dark"
+        -# .col.my-auto= link_to 'Destroy', store, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-dark"
 
 %br
 

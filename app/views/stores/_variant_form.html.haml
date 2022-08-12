@@ -1,0 +1,15 @@
+.nested-form-wrapper{data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper'}}
+    .col-md-6
+        .field.fs-3
+            = f.label :name, class: "form-label text-white fs-4"
+            = f.text_field :name, class: "form-control mb-3"
+            %button.form-label.btn.btn-dark.fs-5.rounded-pill{"data-action" => "nested-form#remove", :type => "button"} Delete Variant
+            = f.hidden_field :_destroy
+        %template{"data-nested-form-target" => "template"}
+            = f.fields_for :variant_options, f.object.variant_options.new, child_index: 'NEW_RECORD' do |variant_option_fields|
+                = render "variant_option_form", f: variant_option_fields
+        = f.fields_for :variant_options do |variant_option_fields|
+            = render "variant_option_form", f: variant_option_fields
+        %div{"data-nested-form-target" => "target"}
+            .field.mb-3
+                %button.form-label.btn.btn-dark.btn-outline-light.rounded-pill{"data-action" => "nested-form#add", :type => "button"} New Option

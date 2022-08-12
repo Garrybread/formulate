@@ -1,41 +1,36 @@
-.d-flex.justify-content-center
-  %p#notice= notice
-  .col-md-2.mx-5
-    .row
-      %p.text-white
-        %b Name:
-        = @store.name
-    .row
-      %p.text-white
-        %b Street:
-        = @store.street
-    .row
-      %p.text-white
-        %b City:
-        = @store.city
-    .row
-      %p.text-white
-        %b State:
-        = @store.state
+- content_for :jumbotron do
+  = @store.name
+.col-md-8.mx-auto
+  .row.mb-3
+    .col.text-white.fs-2.text-center.bg-dark.rounded.py-3= "#{@store.street} • #{@store.city} • #{@store.state} • #{@store.country}"
+  .row.bg-dark.rounded.py-3
+    .col-md-6.mb-3
       .row
-      %p.text-white
-        %b Country:
-        = @store.country
+        - if @store.photo.attached?
+          = image_tag @store.photo
+    .col-md-6.mb-3
+      %iframe{:allowfullscreen => "", :height => "345", :loading => "lazy", :src => "https://www.google.com/maps/embed/v1/place?q=#{@store.latitude}%2C%20#{@store.longitude}&key=AIzaSyDD4mJzxK8STY8f5LOcGRRbymOcqCPiA40", :style => "border:0", :width => "625"}
+  - @store.products.each do |product|
+    .row.my-3.mx-auto
+      .col-2.my-auto= image_tag product.photo.variant(resize_to_fill: [200, 100]), class: "rounded"
+      .col-10.text-white.bg-dark.rounded
+        .row.fs-4.mt-2
+          .col= "#{product.name} • #{product.price}"
+        .row.fs-5.my-auto
+          .col= product.description
     .row
-      .col
-        = link_to 'Edit', edit_store_path(@store), class: "btn btn-dark"
-      .col
-        = link_to 'Back', stores_path, class: "btn btn-dark"
-    .row
-      - if @store.photo.attached?
-        = image_tag @store.photo
-    .row.text-white
-      - @store.products.each do |product|
-        .col= product.name
-        .col= product.description
-        .col= product.price
-        .col
-          - product.photos.each do |photo|
-            = image_tag photo.variant(resize_to_fill: [50, 50])
-  .col-md-2
-    %iframe{:allowfullscreen => "", :height => "450", :loading => "lazy", :src => "https://www.google.com/maps/embed/v1/place?q=#{@store.latitude}%2C%20#{@store.longitude}&key=AIzaSyDD4mJzxK8STY8f5LOcGRRbymOcqCPiA40", :style => "border:0", :width => "600"}
+      - product.variants.each do |variant|
+        .row.mb-1
+          .col-10.text-white.bg-dark.rounded.mx-auto
+            .row.fs-4.my-auto
+              .col= variant.name
+            .row.fs-5.my-auto.py-2
+              .col
+                - variant.variant_options.each do |option|
+                  -unless option == variant.variant_options.last
+                    = "#{option.name} • "
+                  -else
+                    = option.name
+      
+= link_to 'Edit', edit_store_path(@store), class: "btn btn-dark"
+= link_to 'Back', stores_path, class: "btn btn-dark"

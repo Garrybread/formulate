@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_05_201103) do
+ActiveRecord::Schema.define(version: 2022_08_10_184042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,22 @@ ActiveRecord::Schema.define(version: 2022_08_05_201103) do
     t.index ["user_id"], name: "index_users_forms_on_user_id"
   end
 
+  create_table "variant_options", force: :cascade do |t|
+    t.string "name"
+    t.bigint "variant_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["variant_id"], name: "index_variant_options_on_variant_id"
+  end
+
+  create_table "variants", force: :cascade do |t|
+    t.string "name"
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["product_id"], name: "index_variants_on_product_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "options", "questions"
@@ -141,4 +157,6 @@ ActiveRecord::Schema.define(version: 2022_08_05_201103) do
   add_foreign_key "responses", "forms"
   add_foreign_key "users_forms", "forms"
   add_foreign_key "users_forms", "users"
+  add_foreign_key "variant_options", "variants"
+  add_foreign_key "variants", "products"
 end
