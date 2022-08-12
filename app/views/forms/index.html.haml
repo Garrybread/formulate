@@ -19,6 +19,6 @@
                 .row.my-3
                     .col-12.text-white.bg-dark.rounded.mx-auto.px-5.py-3{style: ("background-image: url('#{form.banner.url}'); background-blend-mode: multiply; background-color: #707070 !important; background-position: center" if form.banner.url.present?)}
                         .row.fs-3.mx-2= form.name
-                        .row.text-start.truncate.fs-5.mt-1.mx-2.fw-light= "Created by #{form.users.first.username}"
+                        .row.text-start.truncate.fs-5.mt-1.mx-2= "Created by #{form.users.first.username}"
                         .row
-                            .col.text-start.truncate.mt-1.me-1.fs-5.ms-2.fw-light= form.description
+                            .col.text-start.truncate.mt-1.me-1.fs-5.ms-2= form.description

@@ -15,9 +15,9 @@
                         .row.bg-dark.rounded.border-white.p-3.mb-1{style: ("background-image: url('#{form.banner.url}'); background-blend-mode: multiply; background-color: #707070 !important; background-position: center" if form.banner.url.present?)}
                             .col
                                 .row.fs-3.mx-2= form.name
-                                .row.text-start.truncate.fs-5.mt-1.mx-2.fw-lighter= "Created by #{form.users.first.username}"
+                                .row.text-start.truncate.fs-5.mt-1.mx-2= "Created by #{form.users.first.username}"
                                 .row
-                                    .col.text-start.truncate.mt-1.me-1.fs-5.ms-2.fw-light= form.description
+                                    .col.text-start.truncate.mt-1.me-1.fs-5.ms-2= form.description
         -else
             .d-flex.justify-content-center.text-white.fs-1.my-3.text-center
                 You have no forms!
