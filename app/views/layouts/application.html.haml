@@ -18,5 +18,5 @@
       .alert.alert-danger.alert-dismissible.fade.show{:role => "alert"}
         = flash[:alert]
         %button.btn-close{"aria-label" => "Close", "data-bs-dismiss" => "alert", :type => "button"}
-    = render 'layouts/jumbotron'
+    = render 'layouts/jumbotron', image_url: @form&.banner&.url
     = yield

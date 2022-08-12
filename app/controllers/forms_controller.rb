@@ -47,7 +47,7 @@ class FormsController < ApplicationController
     end
 
     def form_params
-        params.require(:form).permit(:name, :description, user_ids: [], questions_attributes: [:id, :_destroy, :prompt])
+        params.require(:form).permit(:name, :description, :banner, user_ids: [], questions_attributes: [:id, :_destroy, :prompt])
     end
 
 end
